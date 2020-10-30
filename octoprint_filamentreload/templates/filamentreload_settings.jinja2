@@ -56,12 +56,12 @@
     <div class="control-group">
         <div class="controls" data-toggle="tooltip" title="{{ _('Beware that for some printers, pausing is incompatible with M600 (Filament change pause) as both will move the print head and it can resume at a different position as it paused.') }}">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.filamentreload.pause_print"> {{ _('Pause print when out of filament') }}
+                <input type="checkbox" data-bind="checked: settings.plugins.filamentreload.pause_print"> {{ _('Pause print when Button pressed') }}
             </label>
         </div>
         <div class="controls" data-toggle="tooltip" title="{{ _('With this option checked, the plugin will not allow the print to start or resume if it does not detect that filament is present.') }}">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.filamentreload.prevent_print"> {{ _('Prevent start/resume when out of filament') }}
+                <input type="checkbox" data-bind="checked: settings.plugins.filamentreload.prevent_print"> {{ _('Prevent start/resume when Button unpressed') }}
             </label>
         </div>
     </div>
@@ -69,7 +69,7 @@
     <div class="control-group">
         <div class="controls" data-toggle="tooltip" title="{{ _('With this option checked, the plugin will ignore subsequent reports of out of filament until the print is resumed again.') }}">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.filamentreload.send_gcode_only_once"> {{ _('Send GCODE only once when out of filament.') }}
+                <input type="checkbox" data-bind="checked: settings.plugins.filamentreload.send_gcode_only_once"> {{ _('Send GCODE only once when Button pressed.') }}
             </label>
         </div>
     </div>
