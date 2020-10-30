@@ -148,7 +148,7 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
                 "Pin not configured, won't work unless configured!")
 
     def on_after_startup(self):
-        self._logger.info("Filament Sensor Reloaded started")
+        self._logger.info("Emergency Button started")
         self._setup_sensor()
 
     def get_settings_defaults(self):
@@ -194,7 +194,7 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
         # Early abort in case of out ot filament when start printing, as we
         # can't change with a cold nozzle
         if event is Events.PRINT_STARTED and self.no_filament() and self.prevent_print:
-            self._logger.info("Printing aborted: no filament detected!")
+            self._logger.info("Printing aborted: Emergency Button pressed!")
             self._printer.cancel_print()
 
         # Enable sensor
@@ -204,14 +204,14 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
         ):
             if self.prevent_print and self.no_filament():
                 self._logger.info(
-                    "Printing paused: request to resume but no filament detected!")
+                    "Printing paused: request to resume but Emergency Button pressed!")
                 self._printer.pause_print()
             self._logger.info("%s: Enabling filament sensor." % (event))
             if self.sensor_enabled():
                 self.triggered = 0 # reset triggered state
                 self.active = 1
                 GPIO.remove_event_detect(self.pin)
-                self._logger.info("Filament present, print starting")
+                self._logger.info("Button disabled, print starting")
                 GPIO.add_event_detect(
                         self.pin, GPIO.BOTH,
                         callback=self.sensor_callback,
@@ -225,7 +225,7 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
             Events.PRINT_PAUSED,
             Events.ERROR
         ):
-            self._logger.info("%s: Disabling filament sensor." % (event))
+            self._logger.info("%s: Disabling Emergency Button." % (event))
             self.active = 0
 
     def sensor_callback(self, _):
@@ -253,7 +253,7 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
 
         if self.no_filament():
             if self.triggered == 1:
-                self._logger.info("Waiting for filament...")
+                self._logger.info("Waiting for Press...")
                 return
             # Set the triggered flag to check next callback
             self.triggered = 1
@@ -270,29 +270,29 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
                 self._logger.info("Sending out of filament GCODE")
                 self._printer.commands(self.no_filament_gcode)
         else:
-            self._logger.debug("Filament detected!")
+            self._logger.debug("Press detected!")
             # Set the triggered flag to check next callbacks
             self.triggered = 0
 
     def get_update_information(self):
         return dict(
             octoprint_filament=dict(
-                displayName="Filament Sensor Reloaded",
+                displayName="Filament Emergency Button",
                 displayVersion=self._plugin_version,
 
                 # version check: github repository
                 type="github_release",
-                user="ssorgatem",
-                repo="Octoprint-Filament-Reloaded",
+                user="eliteSchwein",
+                repo="Octoprint-EmergencyButton",
                 current=self._plugin_version,
 
                 # update method: pip
-                pip="https://github.com/ssorgatem/Octoprint-Filament-Reloaded/archive/{target_version}.zip"
+                pip="https://github.com/eliteSchwein/Octoprint-EmergencyButton/archive/{target_version}.zip"
             ))
 
 
-__plugin_name__ = "Filament Sensor Reloaded"
-__plugin_version__ = "1.3.3"
+__plugin_name__ = "Filament Emergency Button"
+__plugin_version__ = "1.0.0"
 __plugin_pythoncompat__ = ">=2.7,<4"
 
 
