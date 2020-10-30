@@ -1,4 +1,4 @@
-# OctoPrint-FilamentReloaded
+# OctoPrint-EmergencyButton
 
 [OctoPrint](http://octoprint.org/) plugin that integrates with a filament sensor hooked up to a Raspberry Pi GPIO pin and allows the filament spool to be changed during a print if the filament runs out.
 
@@ -29,8 +29,7 @@ An API is available to check the filament sensor status via a GET method to `/pl
 
 ## Installation
 
-* Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager).
-* Manually using this URL: https://github.com/ssorgatem/Octoprint-Filament-Reloaded/archive/master.zip
+* Manually using this URL: https://github.com/eliteSchwein/Octoprint-Filament-Reloaded/archive/master.zip
 
 ## Configuration
 
