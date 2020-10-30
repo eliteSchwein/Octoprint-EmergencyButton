@@ -232,7 +232,7 @@ class EmergencyButtonPlugin(octoprint.plugin.StartupPlugin,
         sleep(self.bounce/1000)
         pin_triggered = GPIO.input(self.pin)
 
-        self._logger.info("The value of the pin is {}. No filament = {} input = {}".format(pin_triggered, self.button_press(), _))
+        self._logger.info("The value of the pin is {}. Button Pressed = {} input = {}".format(pin_triggered, self.button_press(), _))
         if not self.active:
             self._logger.debug("Sensor callback but no active sensor.")
             return
@@ -266,7 +266,7 @@ class EmergencyButtonPlugin(octoprint.plugin.StartupPlugin,
             if self.pause_print:
                 self._logger.info("Pausing print.")
                 self._printer.pause_print()
-            if self.no_filament_gcode:
+            if self.button_press_gcode:
                 self._logger.info("Sending Button Press GCODE")
                 self._printer.commands(self.button_press_gcode)
         else:
@@ -276,7 +276,7 @@ class EmergencyButtonPlugin(octoprint.plugin.StartupPlugin,
 
     def get_update_information(self):
         return dict(
-            octoprint_filament=dict(
+            octoprint_emergencybutton=dict(
                 displayName="Emergency Button",
                 displayVersion=self._plugin_version,
 
@@ -298,7 +298,7 @@ __plugin_pythoncompat__ = ">=2.7,<4"
 
 def __plugin_load__():
     global __plugin_implementation__
-    __plugin_implementation__ = FilamentReloadedPlugin()
+    __plugin_implementation__ = EmergencyButtonPlugin()
 
     global __plugin_hooks__
     __plugin_hooks__ = {
