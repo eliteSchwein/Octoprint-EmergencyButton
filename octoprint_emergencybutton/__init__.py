@@ -292,7 +292,7 @@ class EmergencyButtonPlugin(octoprint.plugin.StartupPlugin,
 
 
 __plugin_name__ = "Emergency Button"
-__plugin_version__ = "R1.0.0"
+__plugin_version__ = "2.0.1"
 __plugin_pythoncompat__ = ">=2.7,<4"
 
 
